@@ -37,7 +37,6 @@ void loop() {
     {
       String command  =  jsonDoc["command"].as<String>();
 
-
       if (command == "getInfo") {
         //-----------------READING--------------------
         deserializeJson(jsonDoc, eeprom);
@@ -45,12 +44,11 @@ void loop() {
         serializeJsonPretty(jsonDoc, Serial);
         Serial.write(ETX);
       } else if (command == "updateInfo") {
-        String payload  =  jsonDoc["payload"].as<String>();
         //------------------WRITING-----------------
         serializeJson(jsonDoc["payload"], eeprom);
+        eeprom.flush();
         Serial.write(STX);
         Serial.print("saved");
-        eeprom.flush();
         Serial.write(ETX);
       } else if (command) {
         Serial.write(STX);
@@ -58,7 +56,6 @@ void loop() {
         Serial.println(", invalid command.");
         Serial.write(ETX);
       }
-
 
     }
     else
