@@ -4,8 +4,6 @@
 #include <EEPROM.h>
 #include <StreamUtils.h>
 
-String x;
-
 byte STX = 02;
 byte ETX = 03;
 
